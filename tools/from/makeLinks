@@ -1,0 +1,3 @@
+#!/bin/bash
+
+find . -mindepth 2 -name index.html | while read f; do cat $f | grep '<a href="..' | grep index.html | awk -F'"' '{print $2}' | awk -F'/' '{print $2}' | while read ff; do echo $f | awk -F'/' '{print $2}' >$ff/from; done; done

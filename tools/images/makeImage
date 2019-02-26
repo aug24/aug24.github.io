@@ -19,9 +19,19 @@ fi
 
 section=$1; shift
 
-if [[ ! -f ./$section/index.html ]]; then
+if [[ ! -d $section ]]; then
   echo "No such section"
   exit 2
+fi
+
+if [[ ! -e ${section}start ]]; then
+  echo "No 'start' file found in $section"
+  exit 3
+fi
+
+if [[ ! -e ./$section/end ]]; then
+  echo "No 'end' file found in $section"
+  exit 4
 fi
 
 if [[ $# -eq 0 ]]; then
