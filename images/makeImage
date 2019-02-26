@@ -1,0 +1,51 @@
+#!/bin/bash
+
+range=4000
+width=700
+height=50
+lmargin=90
+rmargin=60
+tbmargin=20
+
+left=$lmargin
+right=$(($width - $rmargin))
+top=$(($height - $tbmargin))
+bottom=$(($tbmargin))
+
+if [[ $# -ne 1 ]]; then
+  echo "Title is required"
+  exit 1
+fi
+
+section=$1; shift
+
+if [[ ! -f ./$section/index.html ]]; then
+  echo "No such section"
+  exit 2
+fi
+
+if [[ $# -eq 0 ]]; then
+  start=$(cat $section/start)
+  end=$(cat $section/end)
+else
+  start=$1; shift
+  end=$1; shift
+fi
+
+barrange=$(( ${width} - ${lmargin} - ${rmargin} ))
+barleft=$(( ${range} - ${start} ))
+barleft=$(( ${barleft} * ${barrange}  / ${range} ))
+barleft=$(( ${barleft} + ${lmargin} ))
+barright=$(( ${range} - ${end} ))
+barright=$(( ${barright} * ${barrange}  / ${range} ))
+barright=$(( ${barright} + ${lmargin} ))
+
+rm -f *.png
+
+
+convert -size "${width}x${height}" xc:transparent png24:blank.png
+convert blank.png -fill black -stroke black -draw "polygon ${left},${bottom} ${right},${bottom} ${right},${top} ${left},${top}" bar.png
+convert bar.png -fill red -stroke black -draw "polygon ${barleft},${bottom} ${barright},${bottom} ${barright},${top} ${barleft},${top}" bar2.png
+convert bar2.png -gravity West -pointsize 20 -annotate +0+0 '4000mya' left.png 
+convert left.png -gravity East -pointsize 20 -annotate +0+0 '0mya' ${section}/timeline.png 
+
