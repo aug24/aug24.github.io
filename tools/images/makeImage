@@ -24,12 +24,12 @@ if [[ ! -d $section ]]; then
   exit 2
 fi
 
-if [[ ! -e ${section}start ]]; then
+if [[ ! -e ${section}/start ]]; then
   echo "No 'start' file found in $section"
   exit 3
 fi
 
-if [[ ! -e ./$section/end ]]; then
+if [[ ! -e ./${section}/end ]]; then
   echo "No 'end' file found in $section"
   exit 4
 fi
@@ -58,4 +58,5 @@ convert blank.png -fill black -stroke black -draw "polygon ${left},${bottom} ${r
 convert bar.png -fill red -stroke black -draw "polygon ${barleft},${bottom} ${barright},${bottom} ${barright},${top} ${barleft},${top}" bar2.png
 convert bar2.png -gravity West -pointsize 20 -annotate +0+0 '4000mya' left.png 
 convert left.png -gravity East -pointsize 20 -annotate +0+0 '0mya' ${section}/timeline.png 
+rm -f *.png
 

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+find . -type d \
+  | grep -v tools \
+  | grep -v .git \
+  | while read d; do \
+    [[ -e "$d/start" ]] && [[ -e "$d/end" ]] && ./tools/images/makeImage "$d"; \
+    [[ ! -e "$d/start" ]] || [[ ! -e "$d/end" ]] && echo "Cannot find files for $d"; \
+  done
