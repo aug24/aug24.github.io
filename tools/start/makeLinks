@@ -1,0 +1,11 @@
+#!/bin/bash
+
+find . -mindepth 2 -name from \
+  | while read f; do \
+      root=$(echo $f | awk -F'/' '{print $2}' )
+      from=$(cat $f)
+      cd $root
+      ln -sf ../${root}/end start
+      cd - > /dev/null
+    done; \
+  done

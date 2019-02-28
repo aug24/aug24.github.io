@@ -5,6 +5,10 @@ IMG {
     margin-right: auto;
 }
 
+A {
+    text-align: center;
+}
+
 BODY {
     font-family:Tahoma;
     margin-top:10%;
