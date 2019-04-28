@@ -5,7 +5,6 @@ find . -mindepth 2 -name from \
       root=$(echo $f | awk -F'/' '{print $2}' )
       from=$(cat $f)
       cd $root
-      ln -sf ../${root}/end start
+      ln -sf ../${from}/end start
       cd - > /dev/null
     done; \
-  done
