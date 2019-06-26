@@ -9,6 +9,7 @@ fi
 find $location -type d \
   | grep -v tools \
   | grep -v .git \
+  | sort \
   | while read d; do \
     [[ -e "$d/start" ]] && [[ -e "$d/end" ]] && [[ "$(readlink $d/end)" != "../missing" ]] && ./tools/images/makeImage "$d"; \
     [[ ! -e "$d/start" ]] || [[ ! -e "$d/end" ]] && echo "Cannot find files for $d"; \
