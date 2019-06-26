@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd $(dirname $0)/..
+for f in $(ls -d ./*); do if [[ "$(ls $f | xargs)" != "end from index.html start timeline.png" ]]; then echo $f; fi; done
