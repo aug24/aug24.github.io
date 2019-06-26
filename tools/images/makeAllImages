@@ -1,9 +1,15 @@
 #!/bin/bash
 
-find . -type d \
+if [[ -z $1 ]]; then
+   location=". -mindepth 1"
+else
+   location=$1
+fi
+
+find $location -type d \
   | grep -v tools \
   | grep -v .git \
   | while read d; do \
-    [[ -e "$d/start" ]] && [[ -e "$d/end" ]] && ./tools/images/makeImage "$d"; \
+    [[ -e "$d/start" ]] && [[ -e "$d/end" ]] && [[ "$(readlink $d/end)" != "../missing" ]] && ./tools/images/makeImage "$d"; \
     [[ ! -e "$d/start" ]] || [[ ! -e "$d/end" ]] && echo "Cannot find files for $d"; \
   done

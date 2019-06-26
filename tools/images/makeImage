@@ -34,6 +34,16 @@ if [[ ! -e ./${section}/end ]]; then
   exit 4
 fi
 
+if [[ $(cat ./${section}/start | wc -w) -eq 0 ]]; then
+  echo "No content in 'start' file in $section"
+  exit 5
+fi
+
+if [[ $(cat ./${section}/end | wc -w) -eq 0 ]]; then
+  echo "No content in 'end' file in $section"
+  exit 6
+fi
+
 if [[ $# -eq 0 ]]; then
   start=$(cat $section/start)
   end=$(cat $section/end)
