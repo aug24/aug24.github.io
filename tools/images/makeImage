@@ -67,6 +67,6 @@ convert -size "${width}x${height}" xc:transparent png24:blank.png
 convert blank.png -fill black -stroke black -draw "polygon ${left},${bottom} ${right},${bottom} ${right},${top} ${left},${top}" bar.png
 convert bar.png -fill red -stroke black -draw "polygon ${barleft},${bottom} ${barright},${bottom} ${barright},${top} ${barleft},${top}" bar2.png
 convert bar2.png -gravity West -pointsize 20 -annotate +0+0 '4000mya' left.png 
-convert left.png -gravity East -pointsize 20 -annotate +0+0 '0mya' ${section}/timeline.png 
+convert left.png -gravity East -pointsize 20 -annotate +0+0 '0mya'  -define png:exclude-chunks=date ${section}/timeline.png 
 rm -f *.png
 
